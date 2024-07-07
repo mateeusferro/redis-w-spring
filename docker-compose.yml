@@ -1,0 +1,40 @@
+services:
+#  app:
+#    build:
+#      context: .
+#      dockerfile: ./Dockerfile
+#    depends_on:
+#      - redis
+#      - mysql
+#    environment:
+#      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/product
+#      - SPRING_DATASOURCE_USERNAME=root
+#      - SPRING_DATASOURCE_PASSWORD=root
+#      - SPRING_JPA_HIBERNATE_DDL_AUTO=none
+#      - SPRING_DATASOURCE.DRIVER-CLASS-NAME=com.mysql.cj.jdbc.Driver
+#    ports:
+#      - 8080:8080
+
+  mysql:
+    image: mysql:8.0-debian
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=product
+    volumes:
+      - ./db:/docker-entrypoint-initdb.d/
+    ports:
+      - 3306:3306
+
+  redis:
+    image: redis:7.4-rc-alpine
+    environment:
+      - REDIS_PASSWORD=root
+      - REDIS_PORT=6379
+      - REDIS_PASSWORD=secret
+    ports:
+      - 6379:6379
+
+  redisinsight:
+    image: redislabs/redisinsight:latest
+    ports:
+      - '5540:5540'
