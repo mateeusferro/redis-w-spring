@@ -1,19 +1,23 @@
 services:
-#  app:
-#    build:
-#      context: .
-#      dockerfile: ./Dockerfile
-#    depends_on:
-#      - redis
-#      - mysql
-#    environment:
-#      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/product
-#      - SPRING_DATASOURCE_USERNAME=root
-#      - SPRING_DATASOURCE_PASSWORD=root
-#      - SPRING_JPA_HIBERNATE_DDL_AUTO=none
-#      - SPRING_DATASOURCE.DRIVER-CLASS-NAME=com.mysql.cj.jdbc.Driver
-#    ports:
-#      - 8080:8080
+  app:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    depends_on:
+      - redis
+      - mysql
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/product
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=root
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=none
+      - SPRING_DATASOURCE.DRIVER-CLASS-NAME=com.mysql.cj.jdbc.Driver
+      - SPRING_REDIS_HOST=redis
+      - SPRING_REDIS_PORT=6379
+      - SPRING_CACHE_TYPE=redis
+      - SPRING_CACHE_CACHE-NAMES=products
+    ports:
+      - 8080:8080
 
   mysql:
     image: mysql:8.0-debian
